@@ -20,6 +20,16 @@
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе"></MenuItem>
             </MenuItem>
+            <MenuItem Command="{Binding ChangeTabIndexCommand}" CommandParameter="-1">
+                <MenuItem.Header>
+                    <fa:ImageAwesome Height="12" Icon="Regular_ArrowAltCircleLeft"/>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Command="{Binding ChangeTabIndexCommand}" CommandParameter="+1">
+                <MenuItem.Header>
+                    <fa:ImageAwesome Height="12" Icon="Regular_ArrowAltCircleRight"/>
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem MinWidth="150" MaxWidth="350">
@@ -29,41 +39,9 @@
                 <ProgressBar Width="120" Height="14" 
                              Value="30" Minimum="0" Maximum="100"/>
             </StatusBarItem>
+            <StatusBarItem Content="{Binding SelectedPageIndex}"/>
         </StatusBar>
-        <TabControl>
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel  Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Regular_File" Height="13" Margin="0,0,5,0" Foreground="Red"/>
-                        <TextBlock Text="Вкладка 1"/>
-                    </StackPanel>
-                </TabItem.Header>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="63*"/>
-                        <RowDefinition Height="325*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="157*"/>
-                        <ColumnDefinition Width="637*"/>
-                    </Grid.ColumnDefinitions>
-                    <Rectangle Grid.Column="0" Grid.Row="0" 
-                               Margin="5,7"
-                               Fill="Blue" Stroke="Red" 
-                               StrokeThickness="3" 
-                               RadiusX="5" RadiusY="7"/>
-                    <Ellipse Grid.Column="1" Grid.Row="0" 
-                               Fill="Red" Stroke="Blue" 
-                               StrokeThickness="3">
-                        <Ellipse.InputBindings>
-                            <MouseBinding Command="{Binding CloseApplicationCommand}" MouseAction="LeftDoubleClick"/>
-                        </Ellipse.InputBindings>
-                    </Ellipse>
-                    <GridSplitter Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
-                                  HorizontalAlignment="Right"
-                                  Width="4"/>
-                </Grid>
-            </TabItem>
+        <TabControl SelectedIndex="{Binding SelectedPageIndex}">
             <TabItem Header="График">
                 <oxy:Plot>
                     <oxy:Plot.Axes>
@@ -76,6 +54,44 @@
                                     DataFieldY="YValue"/>
                 </oxy:Plot>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel  Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Regular_File" Height="13" Margin="0,0,5,0" Foreground="Red"/>
+                        <TextBlock Text="Вкладка 2"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="63*"/>
+                        <RowDefinition Height="325*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="157*"/>
+                        <ColumnDefinition Width="637*"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.Column="0" Grid.Row="0" 
+                   Margin="5,7"
+                   Fill="Blue" Stroke="Red" 
+                   StrokeThickness="3" 
+                   RadiusX="5" RadiusY="7"/>
+                    <Ellipse Grid.Column="1" Grid.Row="0" 
+                   Fill="Red" Stroke="Blue" 
+                   StrokeThickness="3">
+                        <Ellipse.InputBindings>
+                            <MouseBinding Command="{Binding CloseApplicationCommand}" MouseAction="LeftDoubleClick"/>
+                        </Ellipse.InputBindings>
+                    </Ellipse>
+                    <GridSplitter Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                      HorizontalAlignment="Right"
+                      Width="4"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Вкладка 2"></TabItem>
+            <TabItem Header="Вкладка 3"></TabItem>
+            <TabItem Header="Вкладка 4"></TabItem>
+            <TabItem Header="Вкладка 5"></TabItem>
+            <TabItem Header="Вкладка 6"></TabItem>
         </TabControl>
     </DockPanel>
 </Window>

@@ -1,12 +1,24 @@
 ﻿using CV19.Infrastructure.Commands;
 using CV19.Models;
 using CV19.ViewModels.Base;
+using System.Printing;
 using System.Windows;
 using System.Windows.Input;
 namespace CV19.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        #region Номер выбранной вкладки
+        /// <summary>Номер выбранной вкладки</summary>
+        private int _SelectedPageIndex;
+        /// <summary>Номер выбранной вкладки</summary>
+        public int SelectedPageIndex
+        {
+            get => _SelectedPageIndex;
+            set => Set(ref _SelectedPageIndex, value);
+        }
+        #endregion
+
         #region Тестовый набор данных для визуализации графиков
         /// <summary>Тестовый набор данных для визуализации графиков</summary>
         private IEnumerable<DataPoint> _TestDataPoints;
@@ -56,6 +68,16 @@ namespace CV19.ViewModels
 
         #endregion
 
+        public ICommand ChangeTabIndexCommand { get; }
+
+        private bool CanChangeTabIndexCommandExecute (object p) => _SelectedPageIndex >= 0;
+
+        private void OnChangeTabIndexCommandExecuted(object p)
+        {
+            if (p is null) return;
+            SelectedPageIndex += Convert.ToInt32(p);
+        }
+
         #endregion
 
         public MainWindowViewModel() 
@@ -64,6 +86,7 @@ namespace CV19.ViewModels
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
 
+            ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
             #endregion
             var data_points = new List<DataPoint>((int)(360/0.1));
             for (var x = 0d; x <= 360; x+=0.1) 
